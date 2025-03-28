@@ -10,9 +10,29 @@ function showSlide(index) {
     } else {
         currentIndex = index;
     }
-    const offset = -currentIndex * 100 + '%';
-    document.querySelector('.slider').style.transform = `translateX(${offset})`;
+    document.querySelector('.slider').style.transform = `translateX(${-currentIndex * 100}%)`;
 }
 
-function prevSlide() { showSlide(currentIndex - 1); }
-function nextSlide() { showSlide(currentIndex + 1); }
+function prevSlide() {
+    currentIndex--;
+    if (currentIndex < 0) {
+        currentIndex = totalSlides - 1;
+    }
+    updateSlide();
+}
+
+function nextSlide() {
+    currentIndex++;
+    if (currentIndex >= totalSlides) {
+        currentIndex = 0;
+    }
+    updateSlide();
+}
+
+function updateSlide() {
+    for (let i = 0; i < totalSlides; i++) {
+        if (i === currentIndex) {
+            document.querySelector('.slider').style.transform = `translateX(${-i * 100}%)`;
+        }
+    }
+}
